@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.config.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/f900e39f72.js" crossorigin="anonymous"></script>
+    <title>My Chatgpt</title>
+    <style>
+        .scrollbar-hidden {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scrollbar-hidden::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+    <!-- Header part -->
+    <header class="py-3 px-4 fixed w-full top-0 flex justify-between bg-dark">
+        <div class="logo text-slight_dark font-bold text-xl">My Chatgpt</div>
+        <div class="new-chat text-white text-xl cursor-pointer transition hover:text-slight_dark">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+    </header>
+
+    <!-- chat container -->
+    <div class="chat-container mx-3 mt-16 text-white flex flex-col gap-4 pb-32">
+        <!-- <div class="user-chat bg-light_dark w-fit py-2 px-3 rounded-lg self-end">Hello</div>
+        <div class="computer-chat flex gap-3">
+            <div class="chat-icon bg-light_dark h-fit px-2 py-1 rounded-full text-lg"><i class="fa-solid fa-fan"></i>
+            </div>
+            <div class="chat-content">
+            </div>
+        </div> -->
+    </div>
+
+    <!-- Message part -->
+    <div
+        class="message-bg bg-dark w-full fixed bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center pb-2 gap-3">
+        <div class="message-part flex items-center w-[85%] p-3 rounded-xl bg-light_dark gap-4">
+            <textarea name="message"
+                class="message resize-none text-white outline-none bg-transparent flex-grow scrollbar-hidden"
+                placeholder="Message Chatgpt"></textarea>
+            <button class="send-btn bg-white px-4 py-[.6rem] rounded-full text-lg transition hover:opacity-[.6]"><i
+                    class="fa-solid fa-arrow-up"></i></button>
+        </div>
+        <div class="copy-right text-slight_dark">created by zuhayb</div>
+    </div>
+</body>
+
+</html>
