@@ -25,7 +25,7 @@ const getResponse = async () => {
     };
 
     const userChat = document.createElement("div");
-    userChat.classList.add("user-chat", "bg-light_dark", "w-fit", "py-2", "px-3", "rounded-lg", "self-end");
+    userChat.classList.add("user-chat", "bg-light_dark", "w-fit", "py-2", "px-3", "rounded-lg", "self-end", "max-w-1/2");
     userChat.textContent = message;
     chatContainer.append(userChat);
 
