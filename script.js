@@ -39,23 +39,22 @@ const getResponse = async () => {
     computerChat.append(chatIcon);
 
     const chatContent = document.createElement("div");
-    chatContent.textContent = "...";
+    chatContent.textContent = "Loading ...";
     chatContent.classList.add("chat-content");
     computerChat.append(chatContent);
-    try {
-        const response = await fetch(url, options);
-        const result = await response.json();
+    const response = await fetch(url, options);
+    const result = await response.json();
 
-        chatContent.innerHTML = convertMarkdown(result.response);
-        sendBtn.disabled = false;
-        sendBtn.classList.remove("opacity-[.6]");
+    sendBtn.disabled = false;
+    sendBtn.classList.remove("opacity-[.6]");
 
-        console.log(encodeURIComponent(message))
-    }
-    catch (error) {
+    console.log(result)
+
+    if (result.status != "success") {
         chatContent.textContent = "It seems that an error happened ☹️. Try again.";
+    } else {
+        chatContent.innerHTML = extractRelevantText(convertMarkdown(result.response));
     }
-
 }
 
 const createNewChat = () => {
@@ -85,6 +84,13 @@ const convertMarkdown = (markdown) => {
 
     html = html.replace(/(<li.*<\/li>)/gms, '<ul class="list-disc pl-5">$1</ul>');
 
+    html = html.replace(/```(\w+)([\s\S]*?)```/g, (_, language, code) =>
+        `<div class="mb-4 mt-2 bg-black rounded p-4">
+            <span class="block text-sm text-gray-500 mb-1">${language}</span>
+            <code class="block">${code.trim()}</code>
+        </div>`
+    );
+
     return html.trim();
 };
 
@@ -99,6 +105,23 @@ const isMarkdown = (text) => {
     // Return true if any Markdown pattern matches
     return markdownPatterns.some((pattern) => pattern.test(text));
 };
+
+function extractRelevantText(input) {
+    if (input.startsWith("---## ⚙️ Input text analysis")) {
+        const startMarker = "## 👤 Humanized text";
+        const endMarker = "---";
+
+        const startIndex = input.indexOf(startMarker) + startMarker.length;
+        const endIndex = input.indexOf(endMarker, startIndex);
+
+        const relevantText = input.slice(startIndex, endIndex).trim();
+
+        return relevantText;
+    }
+    else {
+        return input;
+    }
+}
 
 sendBtn.addEventListener("click", getResponse);
 newChat.addEventListener("click", createNewChat);
